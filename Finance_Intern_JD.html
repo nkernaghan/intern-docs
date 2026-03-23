@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haven256 — Finance Intern Job Description</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:      #1B2A4A;
+    --navy-dark: #0D1526;
+    --navy-mid:  #243660;
+    --gold:      #C9A227;
+    --gold-dim:  #8a6d1a;
+    --warm:      #F0EBE0;
+    --gray:      #7A8EAA;
+    --mono:      'IBM Plex Mono', monospace;
+    --serif:     'Spectral', serif;
+    --sans:      'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy-dark);
+    color: var(--warm);
+    font-family: var(--sans);
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 60px 40px 100px; }
+
+  .site-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gold-dim);
+    padding-bottom: 24px;
+    margin-bottom: 64px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .logo {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .logo span { display: block; font-size: 22px; letter-spacing: 0.05em; color: var(--warm); margin-top: 4px; font-family: var(--serif); font-weight: 300; }
+  .doc-meta {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+  }
+  .doc-meta strong { color: var(--gold); }
+
+  .jd-card {
+    background: linear-gradient(135deg, rgba(27,42,74,0.6) 0%, rgba(13,21,38,0.8) 100%);
+    border: 1px solid rgba(201,162,39,0.2);
+    border-left: 3px solid var(--gold);
+    padding: 48px;
+    margin-bottom: 60px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .jd-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .jd-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--warm);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .jd-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray);
+    letter-spacing: 0.12em;
+    margin-bottom: 36px;
+  }
+
+  .jd-meta-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(201,162,39,0.12);
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .meta-label { font-family: var(--mono); font-size: 8px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; }
+  .meta-value { font-size: 13px; color: var(--warm); font-weight: 400; }
+
+  .jd-section { margin-bottom: 28px; }
+  .jd-section-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .jd-body { font-size: 13px; line-height: 1.75; color: rgba(240,235,224,0.8); }
+
+  .jd-list { list-style: none; padding: 0; }
+  .jd-list li {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(240,235,224,0.8);
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .jd-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-family: var(--mono);
+  }
+
+  .project-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    border: 1px solid rgba(201,162,39,0.35);
+    padding: 5px 12px;
+    text-transform: uppercase;
+  }
+
+  .pay-bar {
+    background: linear-gradient(90deg, var(--navy-mid), transparent);
+    border-left: 3px solid var(--gold);
+    padding: 14px 20px;
+    margin-top: 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--warm);
+  }
+  .pay-bar span { color: var(--gold); font-size: 18px; font-weight: 500; margin-right: 8px; }
+
+  .site-footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(201,162,39,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-text { font-family: var(--mono); font-size: 9px; color: var(--gray); letter-spacing: 0.2em; text-transform: uppercase; }
+  .footer-mark { width: 28px; height: 28px; border: 1px solid var(--gold-dim); display: grid; place-items: center; }
+  .footer-mark span { font-family: var(--mono); font-size: 9px; color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 40px 24px 80px; }
+    .jd-card { padding: 32px 24px; }
+    .site-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="site-header">
+    <div class="logo">
+      Haven256
+      <span>Finance Intern — Summer 2026</span>
+    </div>
+    <div class="doc-meta">
+      <strong>FINANCE INTERN JD</strong><br>
+      Open Position<br>
+      Confidential · Internal Use
+    </div>
+  </header>
+
+  <div class="jd-card">
+    <div class="jd-tag">Open Position</div>
+    <div class="jd-title">Finance Intern</div>
+    <div class="jd-sub">Haven256 · Remote / Hybrid · Summer 2026</div>
+
+    <div class="jd-meta-row">
+      <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">12 Weeks</div></div>
+      <div class="meta-item"><div class="meta-label">Hours</div><div class="meta-value">40 hrs / week</div></div>
+      <div class="meta-item"><div class="meta-label">Pay Range</div><div class="meta-value">$22 – $30 / hr</div></div>
+      <div class="meta-item"><div class="meta-label">Spots Available</div><div class="meta-value">1 Intern</div></div>
+      <div class="meta-item"><div class="meta-label">Start Date</div><div class="meta-value">Summer 2026</div></div>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-title">About Haven256</div>
+      <p class="jd-body">Haven256 is a crypto forensics and digital asset intelligence firm. We build tools that trace illicit funds, detect scam wallets, and support law enforcement and compliance teams. This summer, we're launching new internal products — and we need financial expertise to support their strategy, pricing, and go-to-market planning.</p>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-title">The Role</div>
+      <p class="jd-body">You'll own the financial strategy and analysis for one of two strategic projects, working closely with the engineering and leadership teams. This isn't administrative work — you'll be building financial models, analyzing market dynamics, and influencing product and pricing decisions for tools that could become commercial products or internal operational systems.</p>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-title">Projects Available (Choose One)</div>
+      <div class="project-chips">
+        <div class="chip">Crypto Mixer Tracer</div>
+        <div class="chip">Internal AI OS</div>
+      </div>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-title">What You'll Work On (Flexible Path)</div>
+      <p class="jd-body" style="margin-bottom: 12px;"><strong>If assigned to Crypto Mixer Tracer:</strong></p>
+      <ul class="jd-list">
+        <li>Financial forensics analysis — transaction flow modeling and pattern recognition</li>
+        <li>Compliance cost framework — AML/KYC requirements for law enforcement customers</li>
+        <li>Pricing research — competitive analysis (Chainalysis, TRM Labs, Elliptic)</li>
+        <li>ROI model for law enforcement agencies and compliance teams</li>
+        <li>Go-to-market deck for potential commercial licensing</li>
+      </ul>
+      <p class="jd-body" style="margin-top: 16px; margin-bottom: 12px;"><strong>If assigned to Internal AI Operating System:</strong></p>
+      <ul class="jd-list">
+        <li>Contract analysis & deal modeling — analyze contract terms, structures, and financials</li>
+        <li>Business case analysis — build financial models for internal tool ROI</li>
+        <li>Pricing strategy — develop pricing tiers and licensing models</li>
+        <li>Market sizing — TAM/SAM analysis for different customer segments</li>
+        <li>Financial one-pagers and investor-ready summaries</li>
+      </ul>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-title">Core Responsibilities (Both Paths)</div>
+      <ul class="jd-list">
+        <li>Build and iterate financial models in Excel / Google Sheets</li>
+        <li>Analyze market data and competitive positioning</li>
+        <li>Create clear, visual summaries of financial findings for leadership</li>
+        <li>Support product and pricing strategy decisions with data</li>
+        <li>Track project progress and financial implications of scope changes</li>
+      </ul>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-title">Requirements</div>
+      <ul class="jd-list">
+        <li>Excel / Google Sheets proficiency — building models, not just formulas</li>
+        <li>Strong analytical and problem-solving mindset</li>
+        <li>Ability to communicate complex financial concepts to non-financial audiences</li>
+        <li>Interest in blockchain, crypto, or fintech (or willingness to learn)</li>
+        <li>Finance, accounting, business, or economics coursework preferred</li>
+        <li>Comfort working independently and asking good questions</li>
+      </ul>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-title">What You Bring</div>
+      <ul class="jd-list">
+        <li>Attention to detail in numbers and narratives</li>
+        <li>Ability to translate technical information into business language</li>
+        <li>Curiosity about how products and markets work</li>
+        <li>Willingness to challenge assumptions with data</li>
+      </ul>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-title">Deliverables by Week 12</div>
+      <ul class="jd-list">
+        <li>Comprehensive financial model(s) for your assigned project</li>
+        <li>Competitive landscape analysis and pricing benchmarks</li>
+        <li>2–3 polished executive summaries or go-to-market documents</li>
+        <li>Strategic recommendations backed by financial analysis</li>
+        <li>Documentation for handoff to leadership</li>
+      </ul>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-title">Why Work Here</div>
+      <ul class="jd-list">
+        <li>Real impact — your analysis influences actual product and business decisions</li>
+        <li>Exposure to crypto, fintech, and emerging technology markets</li>
+        <li>Learning from experienced founders and operators</li>
+        <li>A small team where your work is visible and valued</li>
+      </ul>
+    </div>
+
+    <div class="pay-bar"><span>$22–$30/hr</span> based on experience · 40 hrs/wk · 12 weeks</div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-text">Haven256 · Internal Document · Summer 2026</div>
+    <div class="footer-mark"><span>H2</span></div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haven256 Intern Program — Courses & Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Garamond:ital,wght@0,400;0,700&family=Calibri:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #C9A227;
+            --dark-navy: rgba(13, 21, 38, 0.92);
+            --navy: rgba(27, 42, 74, 0.8);
+            --cream: rgba(240, 235, 224, 0.95);
+            --cream-light: rgba(240, 235, 224, 0.7);
+            --serif: 'Garamond', serif;
+            --sans: 'Calibri', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            font-family: var(--sans);
+            color: var(--cream);
+            background: var(--dark-navy);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .brand {
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-family: var(--serif);
+            font-size: 2.8rem;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--cream-light);
+            font-style: italic;
+        }
+
+        .intro {
+            background: var(--navy);
+            padding: 1.5rem;
+            border-left: 4px solid var(--gold);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--cream);
+        }
+
+        section {
+            margin: 2.5rem 0;
+        }
+
+        h2 {
+            font-family: var(--serif);
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+            font-weight: 700;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-card {
+            background: var(--navy);
+            padding: 1.5rem;
+            border-left: 4px solid var(--gold);
+            border-radius: 2px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .course-card h3 {
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            color: var(--cream);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .course-card p {
+            color: var(--cream-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-card a {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--gold);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .course-card a:hover {
+            background: var(--gold);
+            color: var(--dark-navy);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(201, 162, 39, 0.2);
+            color: var(--cream-light);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">Haven256</div>
+            <h1>Intern Program Documentation</h1>
+            <p class="subtitle">Summer 2026</p>
+        </header>
+
+        <div class="intro">
+            <p>Welcome to Haven256. Below are all the courses, guides, and documentation for your internship. Start with the prerequisites and prerequisites reading, then move through the AI 101 course. All materials are self-paced — work through them at your own speed before your start date.</p>
+        </div>
+
+        <section>
+            <h2>Core Programs</h2>
+            <div class="course-grid">
+                <div class="course-card">
+                    <h3>AI 101 & Course Guide</h3>
+                    <p>Complete the prerequisites below before your start date. The Week 1 curriculum covers LLMs, embeddings, RAG, APIs, and agents.</p>
+                    <a href="ai-101.html">View Course</a>
+                </div>
+
+                <div class="course-card">
+                    <h3>Courses & Pre-Reading</h3>
+                    <p>Required reading and foundational courses for all interns. Covers AI, crypto, APIs, and forensics.</p>
+                    <a href="Courses_PreReading.html">View Materials</a>
+                </div>
+
+                <div class="course-card">
+                    <h3>AI 101 Full Guide</h3>
+                    <p>Comprehensive version of the AI 101 course with extended curriculum and resource lists.</p>
+                    <a href="AI_101_Course_Guide.html">View Full Guide</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Additional Documentation</h2>
+            <div class="course-grid">
+                <div class="course-card">
+                    <h3>Program Cost Analysis</h3>
+                    <p>Budget and cost breakdown for the Haven256 Summer 2026 intern program.</p>
+                    <a href="Cost_Analysis.html">View Analysis</a>
+                </div>
+
+                <div class="course-card">
+                    <h3>Finance Intern Job Description</h3>
+                    <p>Role description, responsibilities, and qualifications for finance interns.</p>
+                    <a href="Finance_Intern_JD.html">View Job Description</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <strong>Haven256</strong> · Summer 2026 Intern Program · Confidential · Internal Use Only
+        </footer>
+    </div>
+</body>
+</html>

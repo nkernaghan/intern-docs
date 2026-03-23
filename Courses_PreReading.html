@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haven256 — Pre-Reading &amp; Course Material</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:      #1B2A4A;
+    --navy-dark: #0D1526;
+    --navy-mid:  #243660;
+    --gold:      #C9A227;
+    --gold-dim:  #8a6d1a;
+    --warm:      #F0EBE0;
+    --gray:      #7A8EAA;
+    --mono:      'IBM Plex Mono', monospace;
+    --serif:     'Spectral', serif;
+    --sans:      'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy-dark);
+    color: var(--warm);
+    font-family: var(--sans);
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 60px 40px 100px; }
+
+  /* ── HEADER ── */
+  .site-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gold-dim);
+    padding-bottom: 24px;
+    margin-bottom: 64px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .logo { font-family: var(--mono); font-size: 11px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; }
+  .logo span { display: block; font-size: 22px; letter-spacing: 0.05em; color: var(--warm); margin-top: 4px; font-family: var(--serif); font-weight: 300; }
+  .doc-meta { text-align: right; font-family: var(--mono); font-size: 10px; color: var(--gray); letter-spacing: 0.1em; line-height: 1.8; }
+  .doc-meta strong { color: var(--gold); }
+
+  /* ── INTRO ── */
+  .intro-block {
+    background: linear-gradient(135deg, rgba(27,42,74,0.5), rgba(13,21,38,0.75));
+    border: 1px solid rgba(201,162,39,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 28px 36px;
+    margin-bottom: 60px;
+    animation: fadeUp 0.7s 0.05s ease both;
+  }
+  .intro-label { font-family: var(--mono); font-size: 8px; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .intro-body { font-size: 13px; line-height: 1.75; color: rgba(240,235,224,0.85); }
+
+  /* ── AUDIENCE TAGS ── */
+  .audience-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+  .audience-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    padding: 5px 14px;
+    text-transform: uppercase;
+  }
+  .audience-tag.all { border: 1px solid rgba(201,162,39,0.5); color: var(--gold); }
+  .audience-tag.tech { border: 1px solid rgba(122,142,170,0.4); color: var(--gray); }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold-dim), transparent); }
+
+  /* ── COURSE CARD ── */
+  .course-card {
+    background: linear-gradient(135deg, rgba(27,42,74,0.5), rgba(13,21,38,0.75));
+    border: 1px solid rgba(201,162,39,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 36px 40px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .card-num { font-family: var(--mono); font-size: 28px; font-weight: 500; color: rgba(201,162,39,0.25); line-height: 1; }
+  .card-badge {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+  }
+  .badge-all { border: 1px solid rgba(201,162,39,0.4); color: var(--gold); }
+  .badge-tech { border: 1px solid rgba(122,142,170,0.35); color: var(--gray); }
+
+  .card-title { font-family: var(--serif); font-size: 21px; font-weight: 300; color: var(--warm); margin-bottom: 4px; }
+  .card-time { font-family: var(--mono); font-size: 10px; color: var(--gray); margin-bottom: 24px; }
+
+  .card-section { margin-bottom: 20px; }
+  .card-section-label { font-family: var(--mono); font-size: 8px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
+
+  .resource-list { list-style: none; }
+  .resource-list li {
+    font-size: 13px;
+    color: rgba(240,235,224,0.8);
+    padding: 7px 0 7px 20px;
+    border-bottom: 1px solid rgba(201,162,39,0.06);
+    position: relative;
+    line-height: 1.5;
+  }
+  .resource-list li:last-child { border-bottom: none; }
+  .resource-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-family: var(--mono); font-size: 11px; }
+  .resource-list li .source { font-family: var(--mono); font-size: 9px; color: var(--gray); margin-left: 6px; }
+
+  .concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .concept-item {
+    font-size: 12px;
+    color: rgba(240,235,224,0.75);
+    padding: 8px 12px;
+    background: rgba(27,42,74,0.4);
+    border-left: 2px solid rgba(201,162,39,0.3);
+    font-family: var(--mono);
+    line-height: 1.4;
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(27,42,74,0.4);
+    border: 1px solid rgba(201,162,39,0.1);
+  }
+  .check-box {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--gold-dim);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .check-text { font-size: 12px; color: rgba(240,235,224,0.8); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(201,162,39,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-text { font-family: var(--mono); font-size: 9px; color: var(--gray); letter-spacing: 0.2em; text-transform: uppercase; }
+  .footer-mark { width: 28px; height: 28px; border: 1px solid var(--gold-dim); display: grid; place-items: center; }
+  .footer-mark span { font-family: var(--mono); font-size: 9px; color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 20px 80px; }
+    .course-card { padding: 24px 20px; }
+    .concept-grid, .checklist-grid { grid-template-columns: 1fr; }
+    .site-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="site-header">
+    <div class="logo">
+      Haven256
+      <span>Pre-Reading &amp; Course Material</span>
+    </div>
+    <div class="doc-meta">
+      <strong>DOCUMENT 03 / 03</strong><br>
+      Complete Before Week 1<br>
+      Confidential · Internal Use
+    </div>
+  </header>
+
+  <div class="intro-block">
+    <div class="intro-label">Overview</div>
+    <p class="intro-body">All interns must complete this material before their start date. Work through your required sections at your own pace — aim to finish at least one week before Day 1 so you can hit the ground running.</p>
+    <div class="audience-row">
+      <div class="audience-tag all">All Interns — Sections 1, 2 &amp; 5</div>
+      <div class="audience-tag tech">Technical Interns — All Sections</div>
+    </div>
+  </div>
+
+  <div class="section-label">Learning Modules</div>
+
+  <!-- Section 1 -->
+  <div class="course-card">
+    <div class="card-header">
+      <div class="card-num">01</div>
+      <div class="card-badge badge-all">All Interns</div>
+    </div>
+    <div class="card-title">Crypto &amp; Blockchain Foundations</div>
+    <div class="card-time">Estimated time: 2–3 hours</div>
+
+    <div class="card-section">
+      <div class="card-section-label">Required Reading</div>
+      <ul class="resource-list">
+        <li>"How Bitcoin Works" <span class="source">bitcoin.org · free</span></li>
+        <li>"What is blockchain?" <span class="source">Coinbase Learn · free</span></li>
+        <li>Chainalysis 2024 Crypto Crime Report — key sections <span class="source">PDF provided by Haven256</span></li>
+      </ul>
+    </div>
+
+    <div class="card-section">
+      <div class="card-section-label">Key Concepts to Understand</div>
+      <div class="concept-grid">
+        <div class="concept-item">What a wallet address is and how it works</div>
+        <div class="concept-item">What a transaction hash is</div>
+        <div class="concept-item">UTXO vs. account-based chains</div>
+        <div class="concept-item">Why blockchain is traceable (and why people assume it isn't)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="course-card">
+    <div class="card-header">
+      <div class="card-num">02</div>
+      <div class="card-badge badge-all">All Interns</div>
+    </div>
+    <div class="card-title">Crypto Forensics &amp; Intelligence</div>
+    <div class="card-time">Estimated time: 1–2 hours</div>
+
+    <div class="card-section">
+      <div class="card-section-label">Required Reading</div>
+      <ul class="resource-list">
+        <li>FinCEN Guidance on Virtual Currency <span class="source">fincen.gov · free</span></li>
+        <li>FATF Guidance on Virtual Assets <span class="source">fatf-gafi.org · free</span></li>
+      </ul>
+    </div>
+
+    <div class="card-section">
+      <div class="card-section-label">Key Concepts to Understand</div>
+      <div class="concept-grid">
+        <div class="concept-item">What crypto forensics is and why it matters to law enforcement</div>
+        <div class="concept-item">How mixers, tumblers, and cross-chain bridges obscure funds</div>
+        <div class="concept-item">What "peel chains" and "structuring" look like on-chain</div>
+        <div class="concept-item">How investigators use blockchain data to trace illicit activity</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 — tech only -->
+  <div class="course-card">
+    <div class="card-header">
+      <div class="card-num">03</div>
+      <div class="card-badge badge-tech">Technical Interns Only</div>
+    </div>
+    <div class="card-title">Python &amp; AI Development</div>
+    <div class="card-time">Estimated time: 4–6 hours</div>
+
+    <div class="card-section">
+      <div class="card-section-label">Courses (Free)</div>
+      <ul class="resource-list">
+        <li>Python for Everybody <span class="source">Coursera — audit free</span></li>
+        <li>FastAPI Official Tutorial <span class="source">fastapi.tiangolo.com</span></li>
+        <li>LangChain Quickstart <span class="source">langchain.com/docs</span></li>
+        <li>Supabase Getting Started <span class="source">supabase.com/docs</span></li>
+      </ul>
+    </div>
+
+    <div class="card-section">
+      <div class="card-section-label">Skills to Have Before Week 1</div>
+      <div class="concept-grid">
+        <div class="concept-item">Comfortable writing Python functions and classes</div>
+        <div class="concept-item">Know what an API endpoint is and how to call one</div>
+        <div class="concept-item">Know what a database table is and how to query it</div>
+        <div class="concept-item">Basic understanding of LLMs — tokens, context, prompts</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 — tech only -->
+  <div class="course-card">
+    <div class="card-header">
+      <div class="card-num">04</div>
+      <div class="card-badge badge-tech">Technical Interns Only</div>
+    </div>
+    <div class="card-title">Blockchain Data &amp; APIs</div>
+    <div class="card-time">Estimated time: 2–3 hours</div>
+
+    <div class="card-section">
+      <div class="card-section-label">Resources</div>
+      <ul class="resource-list">
+        <li>Helius Documentation <span class="source">helius.dev/docs · free</span></li>
+        <li>Alchemy Documentation <span class="source">alchemy.com/docs · free</span></li>
+        <li>Blockchair Explorer <span class="source">blockchair.com · free</span></li>
+      </ul>
+    </div>
+
+    <div class="card-section">
+      <div class="card-section-label">Skills to Have Before Week 1</div>
+      <div class="concept-grid">
+        <div class="concept-item">How to call a blockchain API to look up a wallet</div>
+        <div class="concept-item">How to read a transaction and follow funds across addresses</div>
+        <div class="concept-item">What RPC endpoints are and how they work</div>
+        <div class="concept-item">Comfortable reading raw JSON blockchain data</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5 — all -->
+  <div class="course-card">
+    <div class="card-header">
+      <div class="card-num">05</div>
+      <div class="card-badge badge-all">All Interns</div>
+    </div>
+    <div class="card-title">AI Tools &amp; Prompt Engineering</div>
+    <div class="card-time">Estimated time: 1–2 hours</div>
+
+    <div class="card-section">
+      <div class="card-section-label">Reading</div>
+      <ul class="resource-list">
+        <li>Anthropic Prompt Engineering Guide <span class="source">docs.anthropic.com · free</span></li>
+        <li>"What is RAG?" — Retrieval-Augmented Generation explainer <span class="source">search online · free</span></li>
+      </ul>
+    </div>
+
+    <div class="card-section">
+      <div class="card-section-label">Key Concepts</div>
+      <div class="concept-grid">
+        <div class="concept-item">How to write effective prompts for AI models</div>
+        <div class="concept-item">What retrieval-augmented generation (RAG) is</div>
+        <div class="concept-item">How AI can be used as a research and drafting tool</div>
+        <div class="concept-item">Limitations of LLMs and when not to rely on them</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checklist -->
+  <div class="section-label">Pre-Work Checklist</div>
+  <div class="course-card">
+    <div class="card-title">Submit Before Day 1</div>
+    <div class="card-time">Send completed checklist confirmation to your Haven256 contact</div>
+    <div class="checklist-grid">
+      <div class="check-item"><div class="check-box"></div><div class="check-text">Read all required sections for your intern track</div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">Python 3.11+ installed and running on your machine</div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">GitHub account created and configured</div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">Free Supabase account set up</div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">Free Railway or Vercel account created</div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">Read the project brief for your assigned project</div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">Written 1-paragraph summary of what you plan to build</div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text">Confirmed start date and equipment requirements</div></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-text">Haven256 · Internal Document · Summer 2026</div>
+    <div class="footer-mark"><span>H2</span></div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haven256 — Seat Cost & Blended Cost Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:      #1B2A4A;
+    --navy-dark: #0D1526;
+    --navy-mid:  #243660;
+    --gold:      #C9A227;
+    --gold-dim:  #8a6d1a;
+    --warm:      #F0EBE0;
+    --gray:      #7A8EAA;
+    --mono:      'IBM Plex Mono', monospace;
+    --serif:     'Spectral', serif;
+    --sans:      'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy-dark);
+    color: var(--warm);
+    font-family: var(--sans);
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 60px 40px 100px; }
+
+  /* ── HEADER ── */
+  .site-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gold-dim);
+    padding-bottom: 24px;
+    margin-bottom: 64px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .logo { font-family: var(--mono); font-size: 11px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; }
+  .logo span { display: block; font-size: 22px; letter-spacing: 0.05em; color: var(--warm); margin-top: 4px; font-family: var(--serif); font-weight: 300; }
+  .doc-meta { text-align: right; font-family: var(--mono); font-size: 10px; color: var(--gray); letter-spacing: 0.1em; line-height: 1.8; }
+  .doc-meta strong { color: var(--gold); }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold-dim), transparent); }
+
+  /* ── BLOCK ── */
+  .block {
+    background: linear-gradient(135deg, rgba(27,42,74,0.5) 0%, rgba(13,21,38,0.75) 100%);
+    border: 1px solid rgba(201,162,39,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 36px 40px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .block-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--warm);
+    margin-bottom: 6px;
+  }
+  .block-note {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    margin-bottom: 28px;
+  }
+
+  /* ── TABLES ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+  thead tr {
+    background: var(--navy-mid);
+  }
+  thead th {
+    padding: 10px 14px;
+    text-align: left;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 9px;
+    border-bottom: 1px solid var(--gold-dim);
+  }
+  tbody tr {
+    border-bottom: 1px solid rgba(201,162,39,0.08);
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: rgba(201,162,39,0.04); }
+  tbody td {
+    padding: 10px 14px;
+    color: rgba(240,235,224,0.85);
+    line-height: 1.4;
+  }
+  tbody td:last-child { text-align: right; }
+  thead th:last-child { text-align: right; }
+
+  .total-row { background: rgba(27,42,74,0.8) !important; }
+  .total-row td { color: var(--warm) !important; font-weight: 500; border-top: 1px solid var(--gold-dim) !important; }
+  .total-row td:last-child { color: var(--gold) !important; font-size: 13px; }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .stat-card {
+    background: linear-gradient(135deg, rgba(27,42,74,0.6), rgba(13,21,38,0.8));
+    border: 1px solid rgba(201,162,39,0.2);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .stat-label { font-family: var(--mono); font-size: 8px; letter-spacing: 0.3em; color: var(--gray); text-transform: uppercase; margin-bottom: 12px; }
+  .stat-value { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--gold); line-height: 1; }
+  .stat-sub { font-family: var(--mono); font-size: 9px; color: var(--gray); margin-top: 8px; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border: 1px solid rgba(201,162,39,0.3);
+    background: linear-gradient(135deg, rgba(201,162,39,0.06), rgba(13,21,38,0.5));
+    padding: 28px 32px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .callout-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; }
+  .callout-body { font-size: 14px; line-height: 1.7; color: rgba(240,235,224,0.85); font-style: italic; font-family: var(--serif); }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(201,162,39,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-text { font-family: var(--mono); font-size: 9px; color: var(--gray); letter-spacing: 0.2em; text-transform: uppercase; }
+  .footer-mark { width: 28px; height: 28px; border: 1px solid var(--gold-dim); display: grid; place-items: center; }
+  .footer-mark span { font-family: var(--mono); font-size: 9px; color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 20px 80px; }
+    .block { padding: 24px 20px; }
+    .stats-row { grid-template-columns: 1fr; }
+    .site-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="site-header">
+    <div class="logo">
+      Haven256
+      <span>Seat Cost &amp; Blended Cost Analysis</span>
+    </div>
+    <div class="doc-meta">
+      <strong>DOCUMENT 02 / 03</strong><br>
+      Financial Planning<br>
+      Confidential · Internal Use
+    </div>
+  </header>
+
+  <!-- summary stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Direct Seat Cost</div>
+      <div class="stat-value">~$15k</div>
+      <div class="stat-sub">per intern (salary + burden)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Blended Seat Cost</div>
+      <div class="stat-value">~$24k</div>
+      <div class="stat-sub">per intern (fully loaded)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">3-Intern Program</div>
+      <div class="stat-value">~$72k</div>
+      <div class="stat-sub">total blended program cost</div>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section-label">01 — Intern Pay Assumptions</div>
+  <div class="block">
+    <div class="block-title">Direct Compensation</div>
+    <div class="block-note">40 hrs / week · 12-week program · Summer 2026</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Hourly Rate</th>
+          <th>Hours</th>
+          <th>Weeks</th>
+          <th>Direct Pay</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Technical Intern (Senior)</td><td>$35/hr</td><td>40</td><td>12</td><td>$16,800</td></tr>
+        <tr><td>Technical Intern (Junior)</td><td>$25/hr</td><td>40</td><td>12</td><td>$12,000</td></tr>
+        <tr><td>Finance &amp; Marketing Intern</td><td>$22/hr</td><td>40</td><td>12</td><td>$10,560</td></tr>
+        <tr class="total-row"><td colspan="4">Total Direct Salaries</td><td>$39,360</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section-label">02 — Payroll Burden</div>
+  <div class="block">
+    <div class="block-title">Employer Cost Load (+15%)</div>
+    <div class="block-note">Payroll taxes, workers comp, HR processing</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Direct Pay</th>
+          <th>Burden (15%)</th>
+          <th>Seat Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Technical Senior</td><td>$16,800</td><td>$2,520</td><td>$19,320</td></tr>
+        <tr><td>Technical Junior</td><td>$12,000</td><td>$1,800</td><td>$13,800</td></tr>
+        <tr><td>Finance &amp; Marketing</td><td>$10,560</td><td>$1,584</td><td>$12,144</td></tr>
+        <tr class="total-row"><td colspan="2">Total Payroll Burden</td><td>$5,904</td><td>$45,264</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section-label">03 — Technology &amp; Infrastructure</div>
+  <div class="block">
+    <div class="block-title">Tool Stack Costs</div>
+    <div class="block-note">Applies to technical interns. Developer tiers only — no enterprise APIs.</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Service</th>
+          <th>Monthly</th>
+          <th>3 Months</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Cloud Hosting</td><td>Railway / Vercel</td><td>$40</td><td>$120</td></tr>
+        <tr><td>Database</td><td>Supabase / PostgreSQL</td><td>$25</td><td>$75</td></tr>
+        <tr><td>AI APIs</td><td>Claude (Anthropic)</td><td>$100</td><td>$300</td></tr>
+        <tr><td>Blockchain Data</td><td>Helius / Alchemy</td><td>$150</td><td>$450</td></tr>
+        <tr><td>Scraping / Monitoring</td><td>Custom infrastructure</td><td>$30</td><td>$90</td></tr>
+        <tr><td>Dev Tools &amp; Licenses</td><td>GitHub, misc</td><td>$50</td><td>$150</td></tr>
+        <tr class="total-row"><td colspan="3">Total Infrastructure</td><td>$1,185</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section-label">04 — Management &amp; Overhead</div>
+  <div class="block">
+    <div class="block-title">Oversight &amp; Recruiting Costs</div>
+    <div class="block-note">Manager time at $150k/yr equivalent ($72/hr) · 8 hrs/week oversight per intern</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Calculation</th>
+          <th>Per Intern</th>
+          <th>Total (3)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Manager Supervision</td><td>$72 × 8hrs × 12wks</td><td>$6,912</td><td>$20,736</td></tr>
+        <tr><td>Recruiting &amp; Onboarding</td><td>Flat estimate</td><td>$1,500</td><td>$4,500</td></tr>
+        <tr class="total-row"><td colspan="3">Total Overhead</td><td>$25,236</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section 5 — Summary -->
+  <div class="section-label">05 — Total Blended Cost Summary</div>
+  <div class="block">
+    <div class="block-title">3-Intern Program Total</div>
+    <div class="block-note">Summer 2026 · All three projects included</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Cost Category</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Intern Salaries (3 interns)</td><td>$39,360</td></tr>
+        <tr><td>Payroll Burden (15%)</td><td>$5,904</td></tr>
+        <tr><td>Technology &amp; Infrastructure</td><td>$1,185</td></tr>
+        <tr><td>Management Oversight</td><td>$20,736</td></tr>
+        <tr><td>Recruiting &amp; Onboarding</td><td>$4,500</td></tr>
+        <tr class="total-row"><td>Total Blended Program Cost</td><td>$71,685</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ROI callout -->
+  <div class="callout">
+    <div class="callout-label">ROI Projection</div>
+    <p class="callout-body">The Haven256 Internal AI Operating System alone, once deployed, could save 10–15 hours per week of analyst time. At a $75/hr analyst equivalent, that equals $39,000–$58,500 per year in recovered capacity — exceeding the total intern program cost within 12–18 months of deployment.</p>
+  </div>
+
+  <!-- Seat cost summary -->
+  <div class="section-label">06 — Seat Cost Summary</div>
+  <div class="block">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Range</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Direct Seat Cost (salary + burden only)</td><td>$13k – $19k per intern</td></tr>
+        <tr><td>Fully Loaded Seat Cost (all-in)</td><td>$22k – $28k per intern</td></tr>
+        <tr><td>Industry Benchmark (big tech with relocation)</td><td>$40k – $60k per intern</td></tr>
+        <tr class="total-row"><td>Haven256 Program — Fully Loaded Average</td><td>~$24k per intern</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-text">Haven256 · Internal Document · Summer 2026</div>
+    <div class="footer-mark"><span>H2</span></div>
+  </footer>
+
+</div>
+</body>
+</html>
