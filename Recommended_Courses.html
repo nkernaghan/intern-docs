@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haven256 — Recommended AI &amp; Cybersecurity Courses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:      #1B2A4A;
+    --navy-dark: #0D1526;
+    --navy-mid:  #243660;
+    --gold:      #C9A227;
+    --gold-dim:  #8a6d1a;
+    --warm:      #F0EBE0;
+    --gray:      #7A8EAA;
+    --mono:      'IBM Plex Mono', monospace;
+    --serif:     'Spectral', serif;
+    --sans:      'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy-dark);
+    color: var(--warm);
+    font-family: var(--sans);
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+  }
+
+  a { color: var(--gold); text-decoration: none; transition: color 0.2s ease; }
+  a:hover { color: var(--warm); }
+
+  .page { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 60px 40px 100px; }
+
+  /* ── HEADER ── */
+  .site-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gold-dim);
+    padding-bottom: 24px;
+    margin-bottom: 64px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .logo { font-family: var(--mono); font-size: 11px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; }
+  .logo span { display: block; font-size: 22px; letter-spacing: 0.05em; color: var(--warm); margin-top: 4px; font-family: var(--serif); font-weight: 300; }
+  .doc-meta { text-align: right; font-family: var(--mono); font-size: 10px; color: var(--gray); letter-spacing: 0.1em; line-height: 1.8; }
+  .doc-meta strong { color: var(--gold); }
+
+  /* ── INTRO ── */
+  .intro-block {
+    background: linear-gradient(135deg, rgba(27,42,74,0.5), rgba(13,21,38,0.75));
+    border: 1px solid rgba(201,162,39,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 28px 36px;
+    margin-bottom: 60px;
+    animation: fadeUp 0.7s 0.05s ease both;
+  }
+  .intro-label { font-family: var(--mono); font-size: 8px; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .intro-body { font-size: 13px; line-height: 1.75; color: rgba(240,235,224,0.85); }
+  .intro-body p + p { margin-top: 10px; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .section-label.visible { animation: fadeUp 0.7s ease forwards; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold-dim), transparent); }
+
+  /* ── PHASE BLOCK ── */
+  .phase-block {
+    margin-bottom: 56px;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .phase-header.visible { animation: fadeUp 0.7s ease forwards; }
+  .phase-icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--gold-dim);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .phase-icon span { font-family: var(--mono); font-size: 18px; color: var(--gold); }
+  .phase-title { font-family: var(--serif); font-size: 20px; font-weight: 300; color: var(--warm); }
+  .phase-subtitle { font-family: var(--mono); font-size: 10px; color: var(--gray); letter-spacing: 0.1em; margin-top: 2px; }
+
+  /* ── COURSE CARD ── */
+  .course-card {
+    background: linear-gradient(135deg, rgba(27,42,74,0.5), rgba(13,21,38,0.75));
+    border: 1px solid rgba(201,162,39,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 32px 36px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .course-card.visible { animation: fadeUp 0.7s ease forwards; }
+  .course-card:hover {
+    border-color: rgba(201,162,39,0.4);
+    transform: translateY(-2px);
+  }
+
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+  .card-num { font-family: var(--mono); font-size: 28px; font-weight: 500; color: rgba(201,162,39,0.2); line-height: 1; }
+  .card-badge {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+  }
+  .badge-all { border: 1px solid rgba(201,162,39,0.4); color: var(--gold); }
+  .badge-tech { border: 1px solid rgba(122,142,170,0.35); color: var(--gray); }
+
+  .card-title { font-family: var(--serif); font-size: 19px; font-weight: 300; color: var(--warm); margin-bottom: 10px; }
+  .card-title a { color: var(--warm); border-bottom: 1px solid rgba(201,162,39,0.3); padding-bottom: 1px; transition: border-color 0.2s ease; }
+  .card-title a:hover { border-color: var(--gold); }
+  .card-desc { font-size: 13px; color: rgba(240,235,224,0.75); line-height: 1.7; margin-bottom: 14px; }
+  .card-why {
+    font-size: 12px;
+    color: rgba(240,235,224,0.6);
+    line-height: 1.6;
+    padding: 12px 16px;
+    background: rgba(27,42,74,0.4);
+    border-left: 2px solid rgba(201,162,39,0.3);
+  }
+  .card-why strong { color: var(--gold); font-family: var(--mono); font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+  /* ── SKIP SECTION ── */
+  .skip-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .skip-item {
+    font-size: 12px;
+    color: rgba(240,235,224,0.5);
+    padding: 10px 14px;
+    background: rgba(27,42,74,0.3);
+    border: 1px solid rgba(122,142,170,0.12);
+    font-family: var(--mono);
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .skip-item.visible { animation: fadeUp 0.7s ease forwards; }
+  .skip-item .skip-name { color: rgba(240,235,224,0.7); display: block; margin-bottom: 2px; font-size: 11px; }
+  .skip-item .skip-reason { font-family: var(--sans); font-size: 11px; color: var(--gray); }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    margin-top: 16px;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 21px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold-dim), transparent);
+  }
+  .timeline-item {
+    display: flex;
+    gap: 24px;
+    padding: 16px 0;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .timeline-item.visible { animation: fadeUp 0.7s ease forwards; }
+  .timeline-dot {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--gold-dim);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: var(--navy-dark);
+    position: relative;
+    z-index: 1;
+  }
+  .timeline-dot span { font-family: var(--mono); font-size: 9px; color: var(--gold); letter-spacing: 0.1em; }
+  .timeline-content { padding-top: 4px; }
+  .timeline-title { font-family: var(--serif); font-size: 16px; font-weight: 300; color: var(--warm); margin-bottom: 4px; }
+  .timeline-courses { font-size: 12px; color: rgba(240,235,224,0.7); line-height: 1.7; }
+  .timeline-courses .course-ref { color: var(--gold); font-family: var(--mono); font-size: 10px; }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(201,162,39,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeUp 0.7s ease both;
+  }
+  .footer-text { font-family: var(--mono); font-size: 9px; color: var(--gray); letter-spacing: 0.2em; text-transform: uppercase; }
+  .footer-mark { width: 28px; height: 28px; border: 1px solid var(--gold-dim); display: grid; place-items: center; }
+  .footer-mark span { font-family: var(--mono); font-size: 9px; color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 20px 80px; }
+    .course-card { padding: 24px 20px; }
+    .skip-grid { grid-template-columns: 1fr; }
+    .site-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="logo">
+      Haven256
+      <span>Recommended AI &amp; Cybersecurity Courses</span>
+    </div>
+    <div class="doc-meta">
+      <strong>Document 04 / 04</strong><br>
+      Summer 2026 Intern Program<br>
+      All courses free &middot; No login required
+    </div>
+  </header>
+
+  <!-- INTRO -->
+  <div class="intro-block">
+    <div class="intro-label">About This Guide</div>
+    <div class="intro-body">
+      <p>The courses below are all free, self-paced, and publicly accessible — no corporate login or paid subscription required. Each one can be completed in a couple hours or less. They've been selected specifically for your intern track and project assignments across AI and cybersecurity.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- RECOMMENDED COURSES -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">AI Fundamentals &mdash; Anthropic Skilljar</div>
+
+  <div class="phase-block">
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">01</div>
+        <div class="card-badge badge-all">All Interns</div>
+      </div>
+      <div class="card-title"><a href="https://anthropic.skilljar.com/ai-capabilities-and-limitations" target="_blank">AI Capabilities and Limitations</a></div>
+      <div class="card-desc">An introductory course about how AI works — what it can do, where it falls short, and how to think about its role in real work.</div>
+      <div class="card-why">
+        <strong>Why This First</strong>
+        Grounds your expectations before you start using AI tools daily. Especially important for forensics and compliance work where hallucinations carry real risk.
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">02</div>
+        <div class="card-badge badge-all">All Interns</div>
+      </div>
+      <div class="card-title"><a href="https://anthropic.skilljar.com/ai-fluency-framework-foundations" target="_blank">AI Fluency: Framework &amp; Foundations</a></div>
+      <div class="card-desc">Learn to collaborate with AI systems effectively, efficiently, ethically, and safely. Covers the mental models for working alongside AI as a tool.</div>
+      <div class="card-why">
+        <strong>Why This Course</strong>
+        Builds the "how to think about AI" layer that our intern curriculum assumes but doesn't teach directly. Sets up the right habits for the entire 12 weeks.
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">03</div>
+        <div class="card-badge badge-all">All Interns</div>
+      </div>
+      <div class="card-title"><a href="https://anthropic.skilljar.com/claude-101" target="_blank">Claude 101</a></div>
+      <div class="card-desc">Learn how to use Claude for everyday work tasks, understand core features, and explore resources for more advanced learning.</div>
+      <div class="card-why">
+        <strong>Why This Course</strong>
+        You'll be using Claude constantly during the program — for research, drafting, code review, and analysis. Get proficient before you walk in the door.
+      </div>
+    </div>
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">04</div>
+        <div class="card-badge badge-tech">Technical Only</div>
+      </div>
+      <div class="card-title"><a href="https://anthropic.skilljar.com/claude-with-the-anthropic-api" target="_blank">Building with the Claude API</a></div>
+      <div class="card-desc">Comprehensive course covering the full spectrum of working with Anthropic models using the Claude API — authentication, prompting, streaming, tool use, and more.</div>
+      <div class="card-why">
+        <strong>Why This Course</strong>
+        All four intern projects involve building AI-powered tools. This gives you the hands-on API knowledge to start writing real code from Week 2.
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">05</div>
+        <div class="card-badge badge-tech">Technical Only</div>
+      </div>
+      <div class="card-title"><a href="https://anthropic.skilljar.com/introduction-to-subagents" target="_blank">Introduction to Subagents</a></div>
+      <div class="card-desc">Learn how to use and create sub-agents in Claude Code to manage context, delegate tasks, and build specialized workflows that keep your main conversation clean and focused.</div>
+      <div class="card-why">
+        <strong>Why This Course</strong>
+        Relevant for the multi-module architectures in Projects 2 and 3. Understanding agent delegation will help you build systems where components work semi-autonomously.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- AI + CYBERSECURITY -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">AI + Cybersecurity</div>
+
+  <div class="phase-block">
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">06</div>
+        <div class="card-badge badge-all">All Interns</div>
+      </div>
+      <div class="card-title"><a href="https://www.coursera.org/learn/introduction-to-security-in-the-world-of-ai" target="_blank">Introduction to Security in the World of AI</a></div>
+      <div class="card-desc">AI/ML threat landscape, ecosystem security, and Google's Secure AI Framework (SAIF). Covers how to identify and mitigate risks in AI-powered environments.</div>
+      <div class="card-why">
+        <strong>Provider</strong>
+        Google Cloud via Coursera &middot; Free to audit &middot; 2 hours
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">07</div>
+        <div class="card-badge badge-all">All Interns</div>
+      </div>
+      <div class="card-title"><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-ai-security/" target="_blank">Fundamentals of AI Security</a></div>
+      <div class="card-desc">AI security concepts, architecture layers, jailbreaking, prompt injection, model manipulation, and data exfiltration. No signup required.</div>
+      <div class="card-why">
+        <strong>Provider</strong>
+        Microsoft Learn &middot; Free &middot; 45 minutes
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">08</div>
+        <div class="card-badge badge-all">All Interns</div>
+      </div>
+      <div class="card-title"><a href="https://learn.snyk.io/learning-paths/owasp-top-10-llm/" target="_blank">OWASP Top 10 for LLMs</a></div>
+      <div class="card-desc">Prompt injection, data poisoning, sensitive information disclosure, excessive agency, supply chain vulnerabilities, and more. Comes with a free certificate.</div>
+      <div class="card-why">
+        <strong>Provider</strong>
+        Snyk Learn &middot; Free &middot; 2.5 hours
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">09</div>
+        <div class="card-badge badge-tech">Technical Only</div>
+      </div>
+      <div class="card-title"><a href="https://learn.microsoft.com/en-us/security/ai-red-team/training" target="_blank">Introduction to AI Red Teaming</a></div>
+      <div class="card-desc">GenAI vulnerabilities, attack techniques, defense strategies, and case studies. How to probe and break AI systems to find weaknesses.</div>
+      <div class="card-why">
+        <strong>Provider</strong>
+        Microsoft &middot; Free &middot; 1&ndash;2 hours
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CRYPTO FORENSICS & BLOCKCHAIN -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">Crypto Forensics &amp; Blockchain</div>
+
+  <div class="phase-block">
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">10</div>
+        <div class="card-badge badge-all">All Interns</div>
+      </div>
+      <div class="card-title"><a href="https://academy.chainalysis.com/pages/ccfc" target="_blank">Chainalysis Cryptocurrency Fundamentals Certification</a></div>
+      <div class="card-desc">Cryptocurrency fundamentals, blockchain basics, and transaction tracing from the leading blockchain forensics company.</div>
+      <div class="card-why">
+        <strong>Provider</strong>
+        Chainalysis Academy &middot; Free &middot; 1&ndash;2 hours
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">11</div>
+        <div class="card-badge badge-all">All Interns</div>
+      </div>
+      <div class="card-title"><a href="https://www.trmlabs.com/training-and-certifications/trm-cfc-essentials" target="_blank">TRM Labs Crypto Fundamentals Essentials</a></div>
+      <div class="card-desc">Crypto ecosystem, blockchain concepts, and transaction analysis from a leading blockchain analytics provider used by law enforcement worldwide.</div>
+      <div class="card-why">
+        <strong>Provider</strong>
+        TRM Labs &middot; Free &middot; 2&ndash;3 hours
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-top">
+        <div class="card-num">12</div>
+        <div class="card-badge badge-all">All Interns</div>
+      </div>
+      <div class="card-title"><a href="https://www.elliptic.co/crypto-course" target="_blank">Elliptic Crypto Course &amp; Compliance</a></div>
+      <div class="card-desc">Crypto assets, AML regulations, blockchain analytics, and risk assessment. Compliance-focused perspective from a blockchain intelligence company.</div>
+      <div class="card-why">
+        <strong>Provider</strong>
+        Elliptic &middot; Free &middot; 2&ndash;3 hours
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-text">Internal Document &middot; Summer 2026 &middot; Confidential</div>
+    <div class="footer-mark"><span>H</span></div>
+  </footer>
+
+</div>
+
+<script>
+  // Intersection Observer for scroll-triggered animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.section-label, .phase-header, .course-card, .skip-item, .timeline-item').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
